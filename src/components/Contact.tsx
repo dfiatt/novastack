@@ -18,7 +18,9 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const sectionRef = useRef<HTMLElement>(null);
-
+  console.log(import.meta.env);
+  console.log(import.meta);
+  
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -65,14 +67,12 @@ const Contact = () => {
       message,
     };
 
-    // Send email using EmailJS
     emailjs.send(
-      process.env.REACT_APP_EMAILJS_SERVICE_ID,  // Service ID from .env
-      process.env.REACT_APP_EMAILJS_TEMPLATE_ID,  // Template ID from .env
-      emailData,                                  // Dynamic data (name, email, message)
-      process.env.REACT_APP_EMAILJS_USER_ID      // User ID from .env
+      import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
+      emailData,
+      import.meta.env.VITE_APP_EMAILJS_USER_ID
     )
-    
       .then(
         (response) => {
           // Show success alert using SweetAlert2
