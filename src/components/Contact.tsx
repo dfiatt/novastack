@@ -9,7 +9,7 @@ import emailjs from 'emailjs-com';
 import Swal from 'sweetalert2';
 
 
-const Contact = () => { 
+const Contact = () => {
   const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
@@ -214,10 +214,10 @@ const Contact = () => {
                   </div>
 
                   <Button
-  type="submit"
-  className={'rounded-full py-6 mt-4 w-40 text-base bg-primary hover:bg-primary/90 px-[190px]'}
-  disabled={isSubmitting}
->
+                    type="submit"
+                    className={'rounded-full py-6 mt-4 w-40 text-base bg-primary hover:bg-primary/90 px-[190px]'}
+                    disabled={isSubmitting}
+                  >
 
 
                     {isSubmitting ? t('sending') : t('sendMessage')}
