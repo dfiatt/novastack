@@ -9,7 +9,7 @@ import emailjs from 'emailjs-com';
 import Swal from 'sweetalert2';
 
 
-const Contact = () => { actual
+const Contact = () => { 
   const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
