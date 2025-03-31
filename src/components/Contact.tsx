@@ -16,9 +16,9 @@ const Contact = () => {
     message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   const sectionRef = useRef<HTMLElement>(null);
-  
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -35,23 +35,23 @@ const Contact = () => {
       },
       { threshold: 0.1 }
     );
-    
+
     if (sectionRef.current) {
       observer.observe(sectionRef.current);
     }
-    
+
     return () => {
       if (sectionRef.current) {
         observer.unobserve(sectionRef.current);
       }
     };
   }, []);
-  
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
-  
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -67,43 +67,44 @@ const Contact = () => {
 
     // Send email using EmailJS
     emailjs.send(
-      'service_g0vrjdo',  // Your Service ID
-      'template_d3u4j2i',  // Your Template ID
-      emailData,           // Dynamic data (name, email, message)
-      'NReo_m3cUiG4SFb3Z'  // Your Public API Key (User ID)
+      process.env.REACT_APP_EMAILJS_SERVICE_ID,  // Service ID from .env
+      process.env.REACT_APP_EMAILJS_TEMPLATE_ID,  // Template ID from .env
+      emailData,                                  // Dynamic data (name, email, message)
+      process.env.REACT_APP_EMAILJS_USER_ID      // User ID from .env
     )
-    .then(
-      (response) => {
-        // Show success alert using SweetAlert2
-        Swal.fire({
-          title: t('Success'),
-          text: t('Message sent successfully!'),
-          icon: 'success',
-          confirmButtonText: t('OK'),
-        });
+    
+      .then(
+        (response) => {
+          // Show success alert using SweetAlert2
+          Swal.fire({
+            title: t('Success'),
+            text: t('Message sent successfully!'),
+            icon: 'success',
+            confirmButtonText: t('OK'),
+          });
 
-        // Show success message in toast as well
-        toast.success(t('Message sent successfully!'), {
-          description: t("We'll get back to you soon."),
-        });
+          // Show success message in toast as well
+          toast.success(t('Message sent successfully!'), {
+            description: t("We'll get back to you soon."),
+          });
 
-        // Clear the form data
-        setFormData({ name: '', email: '', message: '' });
-        setIsSubmitting(false);
-      },
-      (error) => {
-        // Show error alert using SweetAlert2
-        Swal.fire({
-          title: t('Error'),
-          text: t('Failed to send message. Please try again later.'),
-          icon: 'error',
-          confirmButtonText: t('OK'),
-        });
-        
-        // Reset the button state
-        setIsSubmitting(false);
-      }
-    );
+          // Clear the form data
+          setFormData({ name: '', email: '', message: '' });
+          setIsSubmitting(false);
+        },
+        (error) => {
+          // Show error alert using SweetAlert2
+          Swal.fire({
+            title: t('Error'),
+            text: t('Failed to send message. Please try again later.'),
+            icon: 'error',
+            confirmButtonText: t('OK'),
+          });
+
+          // Reset the button state
+          setIsSubmitting(false);
+        }
+      );
   };
 
   return (
@@ -121,15 +122,15 @@ const Contact = () => {
                   {t('getInTouch')}
                 </span>
               </div>
-              
+
               <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 reveal">
                 {t('buildTogether')}
               </h2>
-              
+
               <p className="text-lg text-foreground/70 reveal">
                 {t('contactParagraph')}
               </p>
-              
+
               <div className="space-y-6 reveal">
                 <div className="flex items-start">
                   <div className="bg-orange-50 p-3 rounded-lg mr-4">
@@ -140,7 +141,7 @@ const Contact = () => {
                     <p className="text-foreground/70">+506 7204 9343</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start">
                   <div className="bg-orange-50 p-3 rounded-lg mr-4">
                     <MapPin className="h-5 w-5 text-orange-600" />
@@ -152,7 +153,7 @@ const Contact = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="reveal">
               <form onSubmit={handleSubmit} className="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
                 <div className="space-y-5">
@@ -170,7 +171,7 @@ const Contact = () => {
                       className="w-full"
                     />
                   </div>
-                  
+
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium mb-2">
                       {t('yourEmail')}
@@ -186,7 +187,7 @@ const Contact = () => {
                       className="w-full"
                     />
                   </div>
-                  
+
                   <div>
                     <label htmlFor="message" className="block text-sm font-medium mb-2">
                       {t('yourMessage')}
@@ -201,9 +202,9 @@ const Contact = () => {
                       className="w-full min-h-[150px]"
                     />
                   </div>
-                  
-                  <Button 
-                    type="submit" 
+
+                  <Button
+                    type="submit"
                     className="w-full py-6 rounded-lg bg-orange-500 hover:bg-orange-600 transition-colors"
                     disabled={isSubmitting}
                   >
