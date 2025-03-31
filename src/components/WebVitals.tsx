@@ -57,14 +57,14 @@ const WebVitals = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const { theme } = useTheme();
   const { t } = useLanguage();
-  
+
   // Use purple, gray, and green for charts regardless of theme
   const chartColors = {
     before: '#94a3b8', // gray-400
     after: '#a855f7', // purple-500
     goal: '#10b981', // green-500
   };
-  
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -81,11 +81,11 @@ const WebVitals = () => {
       },
       { threshold: 0.1 }
     );
-    
+
     if (sectionRef.current) {
       observer.observe(sectionRef.current);
     }
-    
+
     return () => {
       if (sectionRef.current) {
         observer.unobserve(sectionRef.current);
@@ -142,13 +142,14 @@ const WebVitals = () => {
                   <Tooltip
                     formatter={(value, name) => {
                       const metric = performanceData.find(m => m.name === chartData.find(d => d[name] === value)?.name);
-                      return [`${value}%${metric?.unit || ''}`, name];
+                      return [`${value}%${metric?.unit || ''}`, t(String(name))];  // Ensure `name` is a string
                     }}
                   />
+
                   <Legend />
-                  <Bar dataKey="Before" fill={chartColors.before} />
-                  <Bar dataKey="After" fill={chartColors.after} />
-                  <Bar dataKey="Goal" fill={chartColors.goal} />
+                  <Bar dataKey="Before" fill={chartColors.before} name={t('Before')} />  {/* Added translation */}
+                  <Bar dataKey="After" fill={chartColors.after} name={t('After')} />  {/* Added translation */}
+                  <Bar dataKey="Goal" fill={chartColors.goal} name={t('Goal')} />  {/* Added translation */}
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -156,8 +157,8 @@ const WebVitals = () => {
 
           <div className="space-y-8">
             {performanceData.map((metric, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="reveal bg-white rounded-xl p-6 shadow-sm border border-gray-100"
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
@@ -173,7 +174,7 @@ const WebVitals = () => {
                     {metric.name} <span className="text-sm font-normal text-gray-500">({t(metric.description)})</span>
                   </h3>
                 </div>
-                
+
                 <div className="grid grid-cols-3 gap-4 mb-4">
                   <div className="bg-gray-100 p-3 rounded-lg text-center">
                     <div className="text-gray-500 text-sm">{t('Before')}</div>
@@ -188,7 +189,7 @@ const WebVitals = () => {
                     <div className="text-lg font-bold text-emerald-700">{metric.improvement}</div>
                   </div>
                 </div>
-                
+
                 <details className="group mt-4">
                   <summary className="flex justify-between items-center cursor-pointer list-none">
                     <span className="text-purple-600 font-medium text-sm">{t('Optimization Techniques')}</span>
@@ -204,13 +205,13 @@ const WebVitals = () => {
             ))}
           </div>
         </div>
-        
+
         <div className="max-w-3xl mx-auto text-center reveal">
           <h3 className="text-xl font-bold mb-4">{t('Testing & Validation Tools')}</h3>
           <div className="flex flex-wrap justify-center gap-4">
             {['Lighthouse', 'WebPageTest', 'Chrome DevTools', 'Core Web Vitals Report', 'PageSpeed Insights'].map((tool, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className="px-4 py-2 bg-purple-50 text-purple-700 rounded-full text-sm font-medium"
               >
                 {t(tool)}
