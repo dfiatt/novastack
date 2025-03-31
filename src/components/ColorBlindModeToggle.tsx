@@ -14,13 +14,6 @@ const ColorBlindModeToggle = () => {
   const handleToggle = () => {
     toggleColorBlindMode();
     
-    toast({
-      title: colorMode === 'normal' ? t('Color-blind mode enabled') : t('Standard color mode enabled'),
-      description: colorMode === 'normal' 
-        ? t('Using high contrast, pattern-based UI elements') 
-        : t('Using standard color palette'),
-      duration: 3000,
-    });
   };
   
   return (

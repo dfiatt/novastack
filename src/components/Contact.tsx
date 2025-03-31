@@ -218,8 +218,6 @@ const Contact = () => {
                     className={'rounded-full py-6 mt-4 w-40 text-base bg-primary hover:bg-primary/90 px-[190px]'}
                     disabled={isSubmitting}
                   >
-
-
                     {isSubmitting ? t('sending') : t('sendMessage')}
                     <ExternalLink size={16} className="ml-2" />
                   </Button>

@@ -26,11 +26,6 @@ const ThemeSwitcher = () => {
 
   const handleThemeChange = (newTheme: string) => {
     setTheme(newTheme as any);
-    toast({
-      title: t('Theme updated'),
-      description: t('The application theme has been changed'),
-      duration: 2000,
-    });
   };
 
   return (

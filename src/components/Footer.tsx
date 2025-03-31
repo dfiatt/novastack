@@ -106,7 +106,7 @@ const Footer = () => {
                 placeholder={t('yourEmail')}
                 className="bg-gray-800 text-white px-4 py-2 rounded-l-lg w-full focus:outline-none"
               />
-              <Button type="submit" className="bg-orange-600 hover:bg-orange-700 rounded-l-none">
+              <Button type="submit" className="bg-primary hover:bg-primary/90  rounded-l-none">
                 <ArrowRight size={18} />
               </Button>
             </form>
