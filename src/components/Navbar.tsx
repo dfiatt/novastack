@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -13,11 +12,12 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Simplified navigation links
   const navLinks = [
     { name: t('home'), href: '#home' },
     { name: t('services'), href: '#services' },
     { name: t('projects'), href: '#projects' },
+    { name: t('metrics'), href: '#metrics' },
+    { name: t('frameworks'), href: '#frameworks' },
     { name: t('about'), href: '#about' },
   ];
 
@@ -25,10 +25,18 @@ const Navbar = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, [isMobileMenuOpen]);
 
   const scrollToContact = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
@@ -48,7 +56,7 @@ const Navbar = () => {
             NovaStack<span className={`text-${isScrolled ? 'orange' : 'primary'}-500`}>.</span>
           </h1>
         </a>
-        
+
         <nav className="hidden md:flex items-center space-x-3 lg:space-x-6">
           {navLinks.map((link) => (
             <a
@@ -59,28 +67,28 @@ const Navbar = () => {
               {link.name}
             </a>
           ))}
-          
+
           <div className="flex items-center gap-2">
             <LanguageSwitcher />
             <ThemeSwitcher />
             <ColorBlindModeToggle />
           </div>
-          
-          <Button 
+
+          <Button
             className="rounded-full px-6 bg-primary hover:bg-primary/90"
             onClick={scrollToContact}
           >
             {t('contactUs')}
           </Button>
         </nav>
-        
+
         <div className="md:hidden flex items-center gap-4">
           <div className="flex items-center gap-2">
             <LanguageSwitcher />
             <ThemeSwitcher />
             <ColorBlindModeToggle />
           </div>
-          
+
           <button
             className="relative z-50"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -89,15 +97,25 @@ const Navbar = () => {
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
-        
-        {/* Mobile menu */}
+
+        {/* Mobile Menu with Blur Background */}
         <div
           className={cn(
-            'fixed inset-0 bg-background glass-dark md:hidden flex flex-col justify-center items-center transition-all duration-300 ease-in-out',
-            isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+            'absolute top-0 left-0 w-full h-screen flex flex-col justify-center items-center bg-background glass-dark transition-opacity duration-300 ease-in-out',
+            isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
           )}
         >
-          <nav className="flex flex-col items-center space-y-8">
+          {/* Background Blur Layer */}
+          <div
+            className={cn(
+              'fixed top-0 left-0 w-full h-screen flex flex-col justify-center items-center bg-background/90 backdrop-blur-[16px] transition-opacity duration-150 ease-in-out',
+              isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
+            )}
+          >
+          </div>
+
+          {/* Mobile Menu Content */}
+          <nav className="relative flex flex-col items-center space-y-8 z-10">
             {navLinks.map((link) => (
               <a
                 key={link.name}
@@ -108,7 +126,7 @@ const Navbar = () => {
                 {link.name}
               </a>
             ))}
-            <Button 
+            <Button
               className="rounded-full px-8 py-6 mt-4 w-40 text-base bg-primary hover:bg-primary/90"
               onClick={scrollToContact}
             >

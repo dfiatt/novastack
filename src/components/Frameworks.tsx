@@ -106,7 +106,7 @@ const Frameworks = () => {
     },
     { 
       name: 'GraphQL', 
-      icon: '◯', 
+      icon: '📊', 
       category: 'backend',
       level: 5,
       descriptionKey: 'graphqlDescription'
@@ -187,7 +187,7 @@ const Frameworks = () => {
     },
     { 
       name: 'Git', 
-      icon: '📊', 
+      icon: '🖇️', 
       category: 'tools',
       level: 5,
       descriptionKey: 'gitDescription'
