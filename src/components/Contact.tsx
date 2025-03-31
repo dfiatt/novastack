@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
-import { MapPin, Phone, ExternalLink } from 'lucide-react';
+import { MapPin, Phone, ExternalLink, Mail } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import emailjs from 'emailjs-com';
 import Swal from 'sweetalert2';
@@ -139,16 +139,25 @@ const Contact = () => {
                   <div>
                     <h3 className="font-medium">{t('phone')}</h3>
                     <p className="text-foreground/70">+506 7204 9343</p>
-                  </div>
+                  </div>                 
                 </div>
-
                 <div className="flex items-start">
                   <div className="bg-orange-50 p-3 rounded-lg mr-4">
-                    <MapPin className="h-5 w-5 text-orange-600" />
+                    <Phone className="h-5 w-5 text-orange-600" />
+                  </div>
+                  
+                  <div>
+                    <h3 className="font-medium">{t('phone')}</h3>
+                    <p className="text-foreground/70">+1 947 465 2457</p>
+                  </div>                 
+                </div>
+                <div className="flex items-start">
+                  <div className="bg-orange-50 p-3 rounded-lg mr-4">
+                    <Mail className="h-5 w-5 text-orange-600" />
                   </div>
                   <div>
                     <h3 className="font-medium">{t('location')}</h3>
-                    <p className="text-foreground/70">Escazú, San José, Costa Rica</p>
+                    <p className="text-foreground/70">nova.stack.contact@gmail.com</p>
                   </div>
                 </div>
               </div>
