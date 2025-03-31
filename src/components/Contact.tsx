@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -6,11 +5,14 @@ import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
 import { MapPin, Phone, ExternalLink } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import emailjs from 'emailjs-com';
+import Swal from 'sweetalert2';
 
 const Contact = () => {
   const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
+    email: '',
     message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -53,22 +55,55 @@ const Contact = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Format message for WhatsApp
-    const whatsappMessage = `Name: ${formData.name}%0AMessage: ${formData.message}`;
-    const whatsappLink = `https://wa.me/50672049343?text=${whatsappMessage}`;
-    
-    // Open WhatsApp in new tab
-    window.open(whatsappLink, '_blank');
-    
-    // Show success message
-    toast.success(t('Message sent successfully!'), {
-      description: t("We'll get back to you soon."),
-    });
-    
-    // Reset form
-    setFormData({ name: '', message: '' });
-    setIsSubmitting(false);
+
+    const { name, email, message } = formData;
+
+    // Prepare email data with dynamic fields for EmailJS template
+    const emailData = {
+      name,
+      email,
+      message,
+    };
+
+    // Send email using EmailJS
+    emailjs.send(
+      'service_g0vrjdo',  // Your Service ID
+      'template_d3u4j2i',  // Your Template ID
+      emailData,           // Dynamic data (name, email, message)
+      'NReo_m3cUiG4SFb3Z'  // Your Public API Key (User ID)
+    )
+    .then(
+      (response) => {
+        // Show success alert using SweetAlert2
+        Swal.fire({
+          title: t('Success'),
+          text: t('Message sent successfully!'),
+          icon: 'success',
+          confirmButtonText: t('OK'),
+        });
+
+        // Show success message in toast as well
+        toast.success(t('Message sent successfully!'), {
+          description: t("We'll get back to you soon."),
+        });
+
+        // Clear the form data
+        setFormData({ name: '', email: '', message: '' });
+        setIsSubmitting(false);
+      },
+      (error) => {
+        // Show error alert using SweetAlert2
+        Swal.fire({
+          title: t('Error'),
+          text: t('Failed to send message. Please try again later.'),
+          icon: 'error',
+          confirmButtonText: t('OK'),
+        });
+        
+        // Reset the button state
+        setIsSubmitting(false);
+      }
+    );
   };
 
   return (
@@ -131,6 +166,22 @@ const Contact = () => {
                       value={formData.name}
                       onChange={handleChange}
                       placeholder="John Doe"
+                      required
+                      className="w-full"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium mb-2">
+                      {t('yourEmail')}
+                    </label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="john.doe@example.com"
                       required
                       className="w-full"
                     />
