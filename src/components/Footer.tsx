@@ -38,8 +38,8 @@ const Footer = () => {
     }
 
     // Send the email using EmailJS
-    emailjs.sendForm(serviceId, templateId, event.target as HTMLFormElement, userId)
-      .then(
+    emailjs.send(serviceId, templateId, { user_email: userEmail }, userId)
+    .then(
         (result) => {
           console.log(result.text);
           Swal.fire({
