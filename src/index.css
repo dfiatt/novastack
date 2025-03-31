@@ -1,0 +1,284 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root,
+  .theme-orange {
+    --background: 0 0% 98%;
+    --foreground: 222 47% 11%;
+    --primary: 24 95% 50%;
+    --primary-light: 24 100% 95%;
+    --primary-dark: 24 95% 40%;
+    --primary-foreground: 0 0% 100%;
+    --accent: 24 100% 88%;
+    --accent-foreground: 24 95% 15%;
+    --border: 215 31% 91%;
+  }
+
+  .theme-blue {
+    --background: 210 50% 98%;
+    --foreground: 222 47% 11%;
+    --primary: 217 91% 60%;
+    --primary-light: 217 100% 95%;
+    --primary-dark: 217 91% 50%;
+    --primary-foreground: 0 0% 100%;
+    --accent: 217 100% 88%;
+    --accent-foreground: 217 95% 15%;
+    --border: 215 31% 91%;
+  }
+
+  .theme-purple {
+    --background: 280 50% 98%;
+    --foreground: 222 47% 11%;
+    --primary: 270 91% 60%;
+    --primary-light: 270 100% 95%;
+    --primary-dark: 270 91% 50%;
+    --primary-foreground: 0 0% 100%;
+    --accent: 270 100% 88%;
+    --accent-foreground: 270 95% 15%;
+    --border: 215 31% 91%;
+  }
+
+  .theme-green {
+    --background: 140 50% 98%;
+    --foreground: 222 47% 11%;
+    --primary: 142 72% 50%;
+    --primary-light: 142 100% 95%;
+    --primary-dark: 142 72% 40%;
+    --primary-foreground: 0 0% 100%;
+    --accent: 142 100% 88%;
+    --accent-foreground: 142 95% 15%;
+    --border: 215 31% 91%;
+  }
+
+  /* Color-blind friendly mode overrides */
+  .colorblind-mode {
+    /* High contrast colors that work for various types of color blindness */
+    --primary: 0 0% 0%;  /* Black */
+    --primary-light: 0 0% 95%;
+    --primary-dark: 0 0% 20%;
+    --primary-foreground: 0 0% 100%; /* White */
+    --accent: 0 0% 85%;  /* Light gray */
+    --accent-foreground: 0 0% 0%;  /* Black */
+  }
+
+  /* Theme-specific colorblind adjustments */
+  .colorblind-mode.theme-orange {
+    --primary: 45 100% 50%;  /* Yellow - visible for most colorblind types */
+  }
+
+  .colorblind-mode.theme-blue {
+    --primary: 200 100% 50%;  /* Blue - distinguishable in most forms of colorblindness */
+  }
+
+  .colorblind-mode.theme-purple {
+    --primary: 0 0% 20%;  /* Dark gray - safe for all color blindness types */
+  }
+
+  .colorblind-mode.theme-green {
+    --primary: 180 100% 40%;  /* Teal - better for deuteranopia than green */
+  }
+
+  :root {
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222 47% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222 47% 11%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  /* Accessibility - Focus styles */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-[hsl(var(--primary))];
+  }
+
+  /* Skip to main content link (hidden until focused) */
+  .skip-to-content {
+    @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 
+           focus:bg-white focus:p-4 focus:rounded-md focus:shadow-md focus:outline-none
+           focus:ring-2 focus:ring-[hsl(var(--primary))];
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/90 backdrop-blur-lg border border-white/20 shadow-md;
+  }
+  
+  .glass-dark {
+    @apply bg-foreground/20 backdrop-blur-lg border border-foreground/10 shadow-md;
+  }
+  
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .theme-primary-gradient {
+    @apply bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--primary-dark))];
+  }
+  
+  .theme-accent-bg {
+    @apply bg-[hsl(var(--accent))];
+  }
+  
+  .theme-primary-bg {
+    @apply bg-[hsl(var(--primary))];
+  }
+  
+  .theme-primary-text {
+    @apply text-[hsl(var(--primary))];
+  }
+  
+  .theme-primary-border {
+    @apply border-[hsl(var(--primary))];
+  }
+  
+  .text-gradient {
+    @apply bg-clip-text text-transparent theme-primary-gradient;
+  }
+  
+  .section-padding {
+    @apply py-24 md:py-32;
+  }
+  
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+  
+  .animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-float,
+    .animate-pulse,
+    .reveal,
+    .reveal.active {
+      animation: none;
+      transition: none;
+      transform: none;
+    }
+
+    /* Remove transitions and animations for users with motion sensitivities */
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+  
+  /* Enhance keyboard focus styles */
+  .focus-outline {
+    @apply outline-2 outline-offset-2 outline-[hsl(var(--primary))];
+  }
+  
+  /* High contrast text for better readability */
+  .high-contrast-text {
+    @apply text-black text-opacity-90 font-medium;
+  }
+  
+  /* Pattern for colorblind users - can be used instead of just color */
+  .pattern-bg {
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h10v10H0V0zm10 10h10v10H10V10z' fill='%23000' fill-opacity='.05'/%3E%3C/svg%3E");
+    background-size: 10px 10px;
+  }
+}
