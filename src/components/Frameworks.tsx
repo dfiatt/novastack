@@ -78,7 +78,7 @@ const Frameworks = () => {
       name: 'Vue.js', 
       icon: '🟢', 
       category: 'frontend',
-      level: 4,
+      level: 5,
       descriptionKey: 'vueDescription'
     },
     
@@ -138,7 +138,7 @@ const Frameworks = () => {
       name: 'MongoDB', 
       icon: '🍃', 
       category: 'database',
-      level: 4,
+      level: 5,
       descriptionKey: 'mongodbDescription'
     },
     { 
@@ -161,7 +161,7 @@ const Frameworks = () => {
       name: 'AWS', 
       icon: '☁️', 
       category: 'cloud',
-      level: 4,
+      level: 5,
       descriptionKey: 'awsDescription'
     },
     { 
@@ -182,7 +182,7 @@ const Frameworks = () => {
       name: 'Docker', 
       icon: '🐳', 
       category: 'tools',
-      level: 4,
+      level: 5,
       descriptionKey: 'dockerDescription'
     },
     { 
