@@ -19,8 +19,6 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const sectionRef = useRef<HTMLElement>(null);
-  console.log("This data is exposed because it is no use and all keys are public",import.meta.env);
-  console.log("This data is exposed because it is no use and all keys are public",import.meta);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
