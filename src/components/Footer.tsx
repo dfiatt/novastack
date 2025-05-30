@@ -36,13 +36,10 @@ const Footer = () => {
       });
       return;
     }
-    console.log(`Service ID: ${serviceId}, Template ID: ${templateId}, User ID: ${userId}`);
-
     // Send the email using EmailJS
     emailjs.send(serviceId, templateId, { user_email: userEmail }, userId)
     .then(
         (result) => {
-          console.log(result.text);
           Swal.fire({
             icon: 'success',
             title: 'Subscribed!',
